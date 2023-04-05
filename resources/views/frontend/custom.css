@@ -1,0 +1,72 @@
+/* CSS Document */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+.font-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+}
+.footer-copyright {
+  text-align: center;
+  color: #373737;
+  font-weight: 400;
+}
+#header {
+  background: #fff;
+  margin: 10px;
+  border-radius: 10px;
+  border-bottom: 0px;
+  box-shadow: 0 10px 10px #00000015;
+}
+.white-container {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 15px;
+  text-align: center;
+}
+.white-container > p {
+  font-size: 14px;
+  font-weight: 400;
+}
+.white-container > h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.social-menu {
+  width: 100%;
+  text-align: center;
+  background-color: #fff;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+.social-menu h2 {
+  padding-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-family: 'Playfair Display', serif;
+}
+.social-menu > li {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  list-style: none
+}
+.social-menu > li > a {
+  color: #fff;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  line-height: 40px;
+  background-color: #fff;
+  border-radius: 5px;
+  display: inline-block;
+  font-weight: 700;
+  margin: 0 5px;
+  font-size: 20px;
+  transition: ease-in-out .3s
+}
+.social-menu > li > a:hover {
+  padding-left: 0
+}
