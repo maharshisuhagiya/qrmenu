@@ -10,6 +10,7 @@
                     </a>
                     <a href="{{ route('restaurant.menu.item', ['restaurant' => $restaurant->id, 'food_category' => $category->id] + $append) }}"
                         class="mt-3 inline-block font-title line-clamp-1 dark:text-white">{{ $category->local_lang_name }}</a>
+					<p class="category-desc">“NOTHING CAN BEAT WARMING UP TO A WHOLESOME BOWL OF GOODNESS. ALL OUR SOUPS ARE MADE FROM SCRATCH, WITH THE FINEST INGREDIENTS.</p>
                 </div>
             @endforeach
         </div>

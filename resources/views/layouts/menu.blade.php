@@ -21,6 +21,8 @@
     </a>
 </li>
 
+<li><a href="{{ route('restaurant.main_menu.index') }}"><i class="fas fa-list-alt font-size-18"></i> <span data-key="t-{{ __('system.main_menu.menu') }}">{{ __('system.main_menu.menu') }}</span></a></li>
+
 <li><a href="{{ route('restaurant.food_categories.index') }}"><i class="fas fa-list-alt font-size-18"></i> <span data-key="t-{{ __('system.food_categories.menu') }}">{{ __('system.food_categories.menu') }}</span></a></li>
 
 <li><a href="{{ route('restaurant.foods.index') }}"> <i class="fas fa-hamburger font-size-18"></i> <span data-key="t-{{ __('system.foods.menu') }}">{{ __('system.foods.menu') }}</span></a></li>

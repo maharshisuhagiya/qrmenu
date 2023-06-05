@@ -33,9 +33,8 @@ class FoodCategoryController extends Controller
     public function store(FoodCategoryRequest $request)
     {
         try {
-            // dd($request->all());
             DB::beginTransaction();
-            $input = $request->only('category_name', 'restaurant', 'restaurant_id', 'category_image', 'lang_category_name');
+            $input = $request->only('category_name', 'main_menu', 'restaurant', 'restaurant_id', 'category_image', 'lang_category_name', 'category_description');
             $input['sort_order'] = FoodCategory::max('sort_order') + 1;
             FoodCategory::create($input);
             DB::commit();
@@ -85,7 +84,7 @@ class FoodCategoryController extends Controller
         if (($redirect = $this->checkRestaurantIsValidFoodCategory($foodCategory->id)) != null) {
             return redirect($redirect);
         }
-        $input = $request->only('category_name', 'category_image', 'lang_category_name');
+        $input = $request->only('category_name', 'main_menu', 'category_image', 'lang_category_name', 'category_description');
         $foodCategory->fill($input)->save();
 
         $request->session()->flash('Success', __('system.messages.updated', ['model' => __('system.food_categories.title')]));
@@ -135,5 +134,17 @@ class FoodCategoryController extends Controller
             return [$food_category->id => $food_category->category_name];
         });
         return ['' => __('system.fields.select_Category')] + $food_categories->toarray();
+    }
+
+    public static function getCurrentRestaurantAllMainMenu()
+    {
+        $user = request()->user();
+        $user->load(['restaurant.main_menu' => function ($q) {
+            $q->orderBy('main_menu_name', 'asc');
+        }]);
+        $main_menu = $user->restaurant->main_menu->mapWithKeys(function ($mainMenu, $key) {
+            return [$mainMenu->id => $mainMenu->main_menu_name];
+        });
+        return ['' => __('system.fields.select_Main_Menu')] + $main_menu->toarray();
     }
 }

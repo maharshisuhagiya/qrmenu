@@ -24,7 +24,25 @@
             <div class="pristine-error text-help">{{ $message }}</div>
         @enderror
     </div>
-    <div class=" col-md-6">
+    <div class="col-md-12">
+        @php($main_menu_title = __('system.fields.select_Main_Menu'))
+        <div class="mb-3 form-group @error('main_menu') has-danger @enderror">
+            <label class="form-label" for="input-main_menu">{{ $main_menu_title }} <span class="text-danger">*</span></label>
+            @php($main_menu = App\Http\Controllers\Restaurant\FoodCategoryController::getCurrentRestaurantAllMainMenu())
+            {!! Form::select('main_menu', $main_menu, old('main_menu', isset($foodCategory) ? $foodCategory->main_menu : '' ?? []), [
+                'class' => 'form-select choice-picker',
+                'id' => 'input-main_menu',
+                'data-remove_attr' => 'data-type',
+                'required' => 'true',
+                'data-pristine-required-message' => __('validation.required', ['attribute' => strtolower($main_menu_title)]),
+            ]) !!}
+
+            @error('main_menu')
+            <div class="pristine-error text-help">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+    <div class="col-md-6">
         @php($lbl_category_name = __('system.fields.category_name'))
 
         <div class="mb-3 form-group @error('category_name') has-danger @enderror  @error('restaurant_id') has-danger @enderror">
@@ -50,6 +68,26 @@
             @enderror
 
         </div>
+    </div>
+    <div class="col-md-12">
+        @php($lbl_category_description = __('system.fields.category_description'))
+
+        <div class="mb-3 form-group @error('category_description') has-danger @enderror">
+            <label class="form-label" for="input-address">{{ $lbl_category_description }}</label>
+            {!! Form::textarea('category_description', null, [
+                'class' => 'form-control',
+                'id' => 'input-address',
+                'placeholder' => $lbl_category_description,
+                //'minlength' => '5',
+                'rows' => 5,
+                //'required' => true,
+                'data-pristine-required-message' => __('validation.required', ['attribute' => strtolower($lbl_category_description)]),
+                'data-pristine-minlength-message' => __('validation.custom.invalid', ['attribute' => strtolower($lbl_category_description)]),
+            ]) !!}
+        </div>
+        @error('category_description')
+        <div class="pristine-error text-help">{{ $message }}</div>
+        @enderror
     </div>
 
     @foreach (getAllCurrentRestaruentLanguages() as $key => $lang)

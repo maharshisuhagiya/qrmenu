@@ -79,18 +79,22 @@ Route::middleware(['preventBackHistory'])->group(function () {
         // set current(default) restaurant
         Route::put('default/{restaurant}/restaurant', [App\Http\Controllers\Restaurant\RestaurantController::class, 'defaultRestaurant'])->name('default.restaurant');
 
-        // food category management
-        Route::resource('main-menu', App\Http\Controllers\Restaurant\FoodCategoryController::class, [
+        // main-menu management
+        Route::resource('main-menu', App\Http\Controllers\Restaurant\MainMenuController::class, [
             'except' => ['show'],
             'names' => [
-                'index' => 'food_categories.index',
-                'store' => 'food_categories.store',
-                'create' => 'food_categories.create',
-                'update' => 'food_categories.update',
-                'edit' => 'food_categories.edit',
-                'destroy' => 'food_categories.destroy',
+                'index' => 'main_menu.index',
+                'store' => 'main_menu.store',
+                'create' => 'main_menu.create',
+                'update' => 'main_menu.update',
+                'edit' => 'main_menu.edit',
+                'destroy' => 'main_menu.destroy',
             ],
         ]);
+        Route::controller(App\Http\Controllers\Restaurant\MainMenuController::class)->group(function () {
+            Route::post('main_menu/change/position', 'positionChange')->name('main_menu.change.position');
+            Route::get('add_static_data', 'add_static_data');
+        });
         
         // food category management
         Route::resource('food-categories', App\Http\Controllers\Restaurant\FoodCategoryController::class, [

@@ -214,7 +214,7 @@
         @if(config('app.show_banner')==1 || config('app.show_restaurant_name')==1)
 
             @if(config('app.show_banner'))
-                <section class="relative h-[250px] md:h-[400px]">
+                <section class="relative h-[250px] md:h-[400px] mb-10">
                     <!-- Circles background -->
                     <img class="w-full h-full object-cover" loading="lazy" src="{{ $restaurant->cover_image_url }}"
                          onerror="this.src='{{ asset('assets/images/cover.png') }}'"
@@ -223,6 +223,20 @@
                 </section>
             @endif
 
+		<!--main category code start here-->
+		   
+						 <div class="scrollmenu">
+						  <a href="#home" class="a-active">MAIN MENU</a>
+						  <a href="#news">CAFE MENU</a>
+						  <a href="#contact">BEVERAGES</a>
+						  <a href="#about">DESSERT</a>
+						  
+						</div>
+
+					
+						
+		<!--main category code end here-->
+		
             @if(config('app.show_restaurant_name'))
                 @if(config('app.show_banner')==0)
                    <section class="relative h-[100px] md:h-[100px]"></section>

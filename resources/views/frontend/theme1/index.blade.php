@@ -7,8 +7,9 @@
         @foreach ($food_categories as $category)
             <div class="category">
                 <div class="lg:flex items-center justify-between pt-0 pb-4 text-center lg:text-left">
-                    <h3 class="text-2xl font-bold mb-5 lg:mb-0 dark:text-white title">{{ $category->local_lang_name }}
+                    <h3 class="text-2xl font-bold mb-5 lg:mb-0 dark:text-white title font-title">{{ $category->local_lang_name }}
                     </h3>
+					<p class="category-desc">“NOTHING CAN BEAT WARMING UP TO A WHOLESOME BOWL OF GOODNESS. ALL OUR SOUPS ARE MADE FROM SCRATCH, WITH THE FINEST INGREDIENTS.</p>
                 </div>
                 <div class="mb-10">
                     <div class="grid md:grid-cols-2 gap-5">
@@ -18,6 +19,13 @@
                                 <p class="text-neutral text-sm pt-3 mb-4 font-semibold line-clamp-3 description">
                                     {{ $food->local_lang_description }}</p>
                                 <button type="button" class="text-primary font-bold text-sm dark:text-white bg-primary/10 dark:bg-primary rounded-lg py-1.5 px-3 inline-block amount"><span>{{ displayCurrency($food->price) }}</span></button>
+								
+								<span class="food-type">
+								  <img  src="https://www.leonardorestaurant.in/digital-menu/img/signature.png" title="Jain" alt="">
+								  <img  src="https://www.leonardorestaurant.in/digital-menu/img/jain.png" title="Spicy" alt="">
+								</span>
+								
+								
                             </div>
                         @endforeach
                         <p class="font-bold dark:text-white name truncate not_found" style="{{ count($category->foods) > 0 ? 'display:none;' : '' }}"> {{ __('system.messages.food_not_found') }}</p>

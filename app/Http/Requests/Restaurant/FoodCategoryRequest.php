@@ -31,6 +31,7 @@ class FoodCategoryRequest extends FormRequest
         $rules = [
             'category_image' => ['nullable', 'max:50000', "image", 'mimes:jpeg,png,jpg,gif,svg'],
             'category_name' => ['required', 'string', 'max:255', 'min:2'],
+            // 'main_menu' => ['required'],
 
             'restaurant_id' => ['required', 'unique:food_categories,restaurant_id,null,id,category_name,' . $request->category_name],
         ];

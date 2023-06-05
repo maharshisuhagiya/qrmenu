@@ -70,3 +70,46 @@
 .social-menu > li > a:hover {
   padding-left: 0
 }
+
+/*Master Category Style Start*/
+div.scrollmenu {
+background-color: #ffffff;
+overflow: auto;
+white-space: nowrap;
+margin: 0px 15px;
+border-radius: 10px;
+font-family: 'Poppins', sans-serif;
+}
+
+div.scrollmenu a {
+display: inline-block;
+color: #212121;
+text-align: center;
+font-weight: 600;
+padding: 15px 20px;
+text-decoration: none;
+font-size: 14px;
+}
+
+div.scrollmenu a:hover {
+background-color: #212121;
+color: #fff;
+}
+
+div.scrollmenu a.a-active {
+background-color: #212121;
+color: #fff;
+}
+
+/*Master Category Style End*/
+
+
+.category-desc{font-size:14px; line-height: 20px; color: #515151; text-transform: lowercase;}
+
+.food-type {float:right;}
+.food-type  img{
+  float: right;
+  max-width: 100% !important;
+  width: auto !important;
+	height: 25px;
+}

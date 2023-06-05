@@ -20,6 +20,8 @@ class FoodCategory extends Model implements Searchable
         'category_image',
         'lang_category_name',
         'sort_order',
+        'category_description',
+        'main_menu',
     ];
 
     protected $casts = [

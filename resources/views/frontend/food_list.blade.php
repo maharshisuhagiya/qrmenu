@@ -36,7 +36,12 @@
                     {!! Str::limit($food->local_lang_description, 200, ' <a data-description="'.$food->local_lang_description.'" data-title="'.$food->local_lang_name.'"  type="button"  data-modal-toggle="staticModal" class="view_more text-primary text-sm dark:text-white" data-id='.$food->id.'> '.__('system.fields.view_more').'</a>') !!}</p>
                 <div class="flex  items-center  justify-between">
                     <div class="text-primary font-bold text-sm dark:text-white amount"> {{ displayCurrency($food->price) }}</div>
+					<span class="food-type">
+								  <img  src="https://www.leonardorestaurant.in/digital-menu/img/signature.png" title="Jain" alt="">
+								  <img  src="https://www.leonardorestaurant.in/digital-menu/img/jain.png" title="Spicy" alt="">
+								</span>
                 </div>
+				
             </div>
         </div>
     @endforeach

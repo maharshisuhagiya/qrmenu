@@ -9,6 +9,7 @@
                             class="w-full rounded-t-xl h-56 object-cover" onerror="this.src='{{ asset('assets/images/defult.jpg') }}'" /></a>
                     <div class="p-4">
                         <a href="{{ route('restaurant.menu.item', ['restaurant' => $restaurant->id, 'food_category' => $category->id] + $append) }}" class="font-bold dark:text-white">{{ $category->local_lang_name }}</a>
+						<p class="category-desc">“NOTHING CAN BEAT WARMING UP TO A WHOLESOME BOWL OF GOODNESS. ALL OUR SOUPS ARE MADE FROM SCRATCH, WITH THE FINEST INGREDIENTS.</p>
                     </div>
                 </div>
             @endforeach

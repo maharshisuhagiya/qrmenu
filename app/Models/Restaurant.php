@@ -105,6 +105,20 @@ class Restaurant extends Model implements Searchable
         );
     }
 
+    public function main_menu()
+    {
+        $table = (new MainMenu)->getTable();
+        return $this->hasMany(MainMenu::class, 'restaurant_id', 'id')->orderBy('sort_order', 'ASC')->select(
+            "$table.id",
+            "$table.restaurant_id",
+            "$table.main_menu_name",
+            "$table.main_menu_image",
+            "$table.lang_main_menu_name",
+            "$table.sort_order",
+            "$table.created_at",
+        );
+    }
+
     public function foods()
     {
         return $this->hasMany(Food::class, 'restaurant_id', 'id');
