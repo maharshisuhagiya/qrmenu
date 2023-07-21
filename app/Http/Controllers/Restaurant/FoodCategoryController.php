@@ -136,6 +136,19 @@ class FoodCategoryController extends Controller
         return ['' => __('system.fields.select_Category')] + $food_categories->toarray();
     }
 
+    public static function getCurrentRestaurantAllFoodTypes()
+    {
+        $user = request()->user();
+        $user->load(['restaurant.food_types' => function ($q) {
+            $q->orderBy('food_types_name', 'asc');
+        }]);
+        $food_types = $user->restaurant->food_types->mapWithKeys(function ($food_types, $key) {
+            return [$food_types->id => $food_types->food_types_name];
+        });
+
+        return ['' => __('system.fields.select_Category')] + $food_types->toarray();
+    }
+
     public static function getCurrentRestaurantAllMainMenu()
     {
         $user = request()->user();

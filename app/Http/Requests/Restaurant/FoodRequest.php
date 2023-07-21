@@ -33,9 +33,11 @@ class FoodRequest extends FormRequest
             'price' => ['required', 'numeric'],
             'preparation_time' => ['nullable', 'string'],
             'categories' => ['required'],
+            'food_types' => ['required'],
             'calories' => ['nullable'],
             'allergy' => ['nullable'],
             'categories.*' => ['exists:food_categories,id'],
+            'food_types.*' => ['exists:food_types,id'],
             'restaurant_id' => ['required', 'unique:foods,restaurant_id,null,id,name,' . $request->name],
         ];
 
@@ -75,6 +77,7 @@ class FoodRequest extends FormRequest
         $lbl_food_name = strtolower(__('system.fields.food_name'));
         $lbl_food_image = strtolower(__('system.fields.food_image'));
         $lbl_food_category = strtolower(__('system.fields.food_category'));
+        $lbl_food_types = strtolower(__('system.fields.food_types'));
         $lbl_food_description = strtolower(__('system.fields.food_description'));
         $lbl_food_price = strtolower(__('system.fields.food_price'));
         $lbl_preparation_time = strtolower(__('system.fields.preparation_time'));
@@ -105,6 +108,9 @@ class FoodRequest extends FormRequest
 
             "categories.required" => __('validation.custom.select_required', ['attribute' => $lbl_food_category]),
             "categories.exists" => __('validation.enum', ['attribute' => $lbl_food_category]),
+
+            "food_types.required" => __('validation.custom.select_required', ['attribute' => $lbl_food_types]),
+            "food_types.exists" => __('validation.enum', ['attribute' => $lbl_food_types]),
 
             "restaurant_id.unique" => __('validation.unique', ['name' => $request->name, 'attribute' => 'food']),
         ];

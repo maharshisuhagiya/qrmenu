@@ -91,18 +91,38 @@ class Restaurant extends Model implements Searchable
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    public function food_categories()
+    public function food_categories($main_menu_id = 0)
     {
-        $table = (new FoodCategory)->getTable();
-        return $this->hasMany(FoodCategory::class, 'restaurant_id', 'id')->orderBy('sort_order', 'ASC')->select(
-            "$table.id",
-            "$table.restaurant_id",
-            "$table.category_name",
-            "$table.category_image",
-            "$table.lang_category_name",
-            "$table.sort_order",
-            "$table.created_at",
-        );
+        if($main_menu_id == 0)
+        {
+            $table = (new FoodCategory)->getTable();
+            return $this->hasMany(FoodCategory::class, 'restaurant_id', 'id')->orderBy('sort_order', 'ASC')->select(
+                "$table.id",
+                "$table.restaurant_id",
+                "$table.main_menu",
+                "$table.category_name",
+                "$table.category_description",
+                "$table.category_image",
+                "$table.lang_category_name",
+                "$table.sort_order",
+                "$table.created_at",
+            );
+        }
+        else
+        {
+            $table = (new FoodCategory)->getTable();
+            return $this->hasMany(FoodCategory::class, 'restaurant_id', 'id')->where('main_menu', $main_menu_id)->orderBy('sort_order', 'ASC')->select(
+                "$table.id",
+                "$table.restaurant_id",
+                "$table.main_menu",
+                "$table.category_name",
+                "$table.category_description",
+                "$table.category_image",
+                "$table.lang_category_name",
+                "$table.sort_order",
+                "$table.created_at",
+            );
+        }
     }
 
     public function main_menu()
@@ -115,6 +135,19 @@ class Restaurant extends Model implements Searchable
             "$table.main_menu_image",
             "$table.lang_main_menu_name",
             "$table.sort_order",
+            "$table.created_at",
+        );
+    }
+
+    public function food_types()
+    {
+        $table = (new FoodTypes)->getTable();
+        return $this->hasMany(FoodTypes::class, 'restaurant_id', 'id')->select(
+            "$table.id",
+            "$table.restaurant_id",
+            "$table.food_types_name",
+            "$table.food_types_image",
+            "$table.lang_food_types_name",
             "$table.created_at",
         );
     }

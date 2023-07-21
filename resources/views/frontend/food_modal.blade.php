@@ -80,8 +80,17 @@
                                                     class="font-semibold">{{ $food->calories }}</span></li>
                                         @endisset
                                     @endif
-
+                                    <li>
+                                        <span class="food-type" style="float:left">
+                                            @if(count($food->food_types))
+                                                @foreach ($food->food_types as $item)
+                                                    <img  src="{{ $item->food_types_image_url }}" title="{{$item['food_types_name']}}" alt="">
+                                                @endforeach
+                                            @endif
+                                        </span>
+                                    </li>
                                 </ul>
+                                <br>
                                 @isset($food->local_lang_description)
                                     <p class="text-sm">{{ $food->local_lang_description }}</p>
                                 @endif

@@ -1,22 +1,8 @@
 @extends('frontend.master')
 @section('content')
-    <section class="container">
-        <div class="lg:flex items-center justify-between pb-8 text-center lg:text-left pt-14">
-            <h3 class="text-2xl font-bold mb-5 lg:mb-0 dark:text-white">{{ $food_category->local_lang_name }}</h3>
-			<p class="category-desc mb-10">“NOTHING CAN BEAT WARMING UP TO A WHOLESOME BOWL OF GOODNESS. ALL OUR SOUPS ARE MADE FROM SCRATCH, WITH THE FINEST INGREDIENTS.</p>
-            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-end gap-5">
-
-                {!! Form::select('categories', $categoires, $food_category->id, [
-                    'class' => 'text-white bg-neutral dark:bg-[#2c333f] text-sm font-semibold py-3.5 px-4 rounded-lg border border-neutral dark:border-secondary outline-none',
-                    'id' => 'category',
-                ]) !!}
-            </div>
-        </div>
-        <div class="pb-12 md:pb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 xl:gap-8">
-            @include('frontend.food_list')
-            <p class="font-bold dark:text-white name truncate not_found custome" style="display:none"> {{ __('system.messages.food_not_found') }}</p>
-        </div>
-    </section>
+    <section class="container food_categories_data_append">
+        @include('frontend.theme2.foods_view')
+    </section>    
 @endsection
 @push('page_js')
     <script>
@@ -74,11 +60,36 @@
                 }
             }
 
+            var activeMenu = ".active-"+"{{ $food_category->main_menu }}";
+            $('.get-active').removeClass('a-active');
+            $(activeMenu).addClass('a-active');
 
             $(document).on('keyup', '#search_text', function() {
                 var search = $(this).val();
                 serch(search)
             })
+
+            $(document).on('click', '.get-active', function() {
+                $('.get-active').removeClass('a-active');
+                $(this).addClass('a-active');
+                var url = '{{ route('restaurant.menu.item.search', [":restaurant_id", ":food_category_id", ":main_menu"]) }}';
+                url = url.replace(':restaurant_id', "{{ $restaurant->id }}");
+                url = url.replace(':food_category_id', "{{ $food_category->id }}");
+                url = url.replace(':main_menu', $(this).attr('data-id'));
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    // dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        $('.food_categories_data_append').html(data);
+                    },
+                    error: function () {
+                        alert('{{ __('system.messages.food_not_found') }}')
+                        window.location.reload();
+                    }
+                })
+            });
         })
     </script>
 @endpush

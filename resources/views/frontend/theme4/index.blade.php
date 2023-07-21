@@ -1,18 +1,8 @@
 @extends('frontend.master')
 @section('content')
     <section class="container">
-        @php($append = request()->query->has('restaurant_view') ? ['restaurant_view' => request()->query->get('restaurant_view')] : [])
-        <div class="grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-x-5 gap-y-9 mt-8 mb-12 lg:mb-20 lg:mt-12" id="categories">
-            @foreach ($food_categories ?? [] as $category)
-                <div class="text-center">
-                    <a href="{{ route('restaurant.menu.item', ['restaurant' => $restaurant->id, 'food_category' => $category->id] + $append) }}">
-                        <img src="{{ $category->category_image_url }}" onerror="this.src='{{ asset('assets/images/defult.jpg') }}'" alt="" class="w-full rounded-xl h-36 object-cover" />
-                    </a>
-                    <a href="{{ route('restaurant.menu.item', ['restaurant' => $restaurant->id, 'food_category' => $category->id] + $append) }}"
-                        class="mt-3 inline-block font-title line-clamp-1 dark:text-white">{{ $category->local_lang_name }}</a>
-					<p class="category-desc">“NOTHING CAN BEAT WARMING UP TO A WHOLESOME BOWL OF GOODNESS. ALL OUR SOUPS ARE MADE FROM SCRATCH, WITH THE FINEST INGREDIENTS.</p>
-                </div>
-            @endforeach
+        <div class="grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-x-5 gap-y-9 mt-8 mb-12 lg:mb-20 lg:mt-12 food_categories_data_append" id="categories">
+            @include('frontend.theme4.food_categories')
         </div>
 
         <div class="pb-12 pt-6 md:pb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 xl:gap-8 ">
@@ -89,6 +79,30 @@
                 serch(search)
             })
             serch('');
+
+            $(document).on('click', '.get-active', function() {
+                $('.get-active').removeClass('a-active');
+                $(this).addClass('a-active');
+                var url = '{{ route('restaurant.main_menu_search') }}';
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: $(this).attr('data-id'),
+                        restaurant_id: $(this).attr('data-restaurant_id'),
+                        restaurant_view: "{{ app('request')->input('restaurant_view') }}",
+                    },
+                    // dataType: "json",
+                    success: function (data) {
+                        $('.food_categories_data_append').html(data);
+                    },
+                    error: function () {
+                        alert('{{ __('system.messages.food_not_found') }}')
+                        window.location.reload();
+                    }
+                })
+            });
         })
     </script>
 @endpush

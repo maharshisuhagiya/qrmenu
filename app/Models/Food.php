@@ -176,6 +176,24 @@ class Food extends Model implements Searchable
         return $this->food_categories()->pluck('id')->toArray();;
     }
 
+    public function food_types()
+    {
+        $table = (new FoodTypes)->getTable();
+        return $this->belongsToMany(FoodTypes::class, 'food_food_types')->select(
+            "$table.id",
+            "$table.restaurant_id",
+            "$table.food_types_name",
+            "$table.food_types_image",
+            "$table.lang_food_types_name",
+            "$table.created_at",
+        );
+    }
+
+    public function getFoodTypesIdsAttribute()
+    {
+        return $this->food_types()->pluck('id')->toArray();
+    }
+
     public function getLocalLangNameAttribute()
     {
         if (app()->getLocale() == 'en') {

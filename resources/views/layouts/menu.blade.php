@@ -25,6 +25,8 @@
 
 <li><a href="{{ route('restaurant.food_categories.index') }}"><i class="fas fa-list-alt font-size-18"></i> <span data-key="t-{{ __('system.food_categories.menu') }}">{{ __('system.food_categories.menu') }}</span></a></li>
 
+<li><a href="{{ route('restaurant.food_types.index') }}"><i class="fas fa-list-alt font-size-18"></i> <span data-key="t-{{ __('system.food_types.menu') }}">{{ __('system.food_types.menu') }}</span></a></li>
+
 <li><a href="{{ route('restaurant.foods.index') }}"> <i class="fas fa-hamburger font-size-18"></i> <span data-key="t-{{ __('system.foods.menu') }}">{{ __('system.foods.menu') }}</span></a></li>
 
 <li><a href="{{ route('restaurant.create.QR') }}"> <i class="fas fa-qrcode font-size-18"></i> <span data-key="t-{{ __('system.qr_code.menu') }}">{{ __('system.qr_code.menu') }}</span></a></li>

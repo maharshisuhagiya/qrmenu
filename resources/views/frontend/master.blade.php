@@ -224,16 +224,13 @@
             @endif
 
 		<!--main category code start here-->
-		   
-						 <div class="scrollmenu">
-						  <a href="#home" class="a-active">MAIN MENU</a>
-						  <a href="#news">CAFE MENU</a>
-						  <a href="#contact">BEVERAGES</a>
-						  <a href="#about">DESSERT</a>
-						  
-						</div>
 
-					
+        @php($food_types = App\Models\MainMenu::where('restaurant_id', $restaurant->id)->get())
+        <div class="scrollmenu">
+            @foreach ($food_types as $key => $item)
+                <a href="javascript:void(0);" class="get-active active-{{ $item->id }} {{ $key == 0 ? "a-active" : "" }}" data-restaurant_id="{{ $restaurant->id }}" data-id="{{ $item->id }}">{{ $item->main_menu_name }}</a>
+            @endforeach
+        </div>
 						
 		<!--main category code end here-->
 		

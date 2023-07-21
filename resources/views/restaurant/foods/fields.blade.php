@@ -46,6 +46,7 @@
     <div class="col-md-4">
         <div class="mb-3 form-group  @error('categories') has-danger @enderror   ">
             @php($lbl_food_category = __('system.fields.food_category'))
+            {{-- {{ dd($food->categories_ids) }} --}}
             <label class="form-label" for="input-language">{{ $lbl_food_category }} <span
                     class="text-danger">*</span></label>
             @php($categories = App\Http\Controllers\Restaurant\FoodCategoryController::getCurrentRestaurantAllFoodCategories())
@@ -68,7 +69,37 @@
         </div>
 
     </div>
+    <div class="col-md-4">
+        <div class="mb-3 form-group  @error('food_types') has-danger @enderror ">
+            @php($lbl_food_types = __('system.fields.food_types'))
+            {{-- {{ dd($food->food_types_ids) }} --}}
+            <label class="form-label" for="input-language">{{ $lbl_food_types }} <span class="text-danger">*</span></label>
+            @php($food_types = App\Http\Controllers\Restaurant\FoodCategoryController::getCurrentRestaurantAllFoodTypes())
+            <input 
+                type="text"
+                name="food_types_select" 
+                pristine-value-in="{{ implode(',', array_keys($food_types)) }}"
+                value="{{ old('food_types_select', implode(',', $food->food_types_ids ?? [])) }}"
+                id="choices-multiple-remove-button-refs" 
+                required="true" 
+                class="pristine-in-validators d-none"
+                data-pristine-required-message="{{ __('validation.custom.select_required', ['attribute' => strtolower($lbl_food_types)]) }}"
+            >
+            {!! Form::select('food_types[]', $food_types, old('food_types', $food->food_types_ids ?? []), [
+                'class' => 'form-control choice-picker-multiple w-100 ',
+                'id' => 'choices-multiple-remove-button',
+                'data-id' => 'choices-multiple-remove-button-refs',
+                'multiple' => true,
+                'placeholder' => $lbl_food_types,
+                'data-remove' => 'false',
+            ]) !!}
+            @error('food_types')
+            <div class="pristine-error text-help">{{ $message }}</div>
+            @enderror
 
+        </div>
+
+    </div>
 </div>
 
 <div class="row">

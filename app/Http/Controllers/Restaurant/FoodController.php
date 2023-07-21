@@ -37,6 +37,7 @@ class FoodController extends Controller
         }
         createQniqueSessionAndDestoryOld('unique', 1);
         $categories = $request->categories;
+        $food_types = $request->food_types;
 
         $food = Food::create($input);
         $inserts = [];
@@ -45,6 +46,13 @@ class FoodController extends Controller
             $inserts[] = ['food_category_id' => $category, 'food_id' => $food->id, 'sort_order' => $max];
         }
         DB::table('food_food_category')->insert($inserts);
+
+        $inserts = [];
+        foreach ($food_types as $food_type) {
+            $inserts[] = ['food_types_id' => $food_type, 'food_id' => $food->id];
+        }
+        DB::table('food_food_types')->insert($inserts);
+
         $request->session()->flash('Success', __('system.messages.saved', ['model' => __('system.foods.title')]));
 
         DB::commit();
@@ -91,6 +99,7 @@ class FoodController extends Controller
         }
 
         $categories = $request->categories;
+        $food_types = $request->food_types;
 
         $data = $request->only('restaurant_id','calories','allergy', 'food_category_id', 'name', 'description', 'price', 'preparation_time', 'is_featured', 'is_available', 'is_out_of_sold', 'ingredient', 'food_image', 'label_image', 'lang_name', 'lang_description', 'gallery_image','key','val');
         if (isset($data['gallery_image'])) {
@@ -108,6 +117,16 @@ class FoodController extends Controller
             $inserts[] = ['food_category_id' => $category, 'food_id' => $food->id];
         }
         DB::table('food_food_category')->insert($inserts);
+
+        $addData = array_diff($food_types, $food->food_types_ids);
+        $deleted = array_diff($food->food_types_ids, $food_types);
+
+        $ids = DB::table('food_food_types')->where('food_id', $food->id)->whereIn('food_types_id', $deleted)->delete();
+        $inserts = [];
+        foreach ($addData as $category) {
+            $inserts[] = ['food_types_id' => $category, 'food_id' => $food->id];
+        }
+        DB::table('food_food_types')->insert($inserts);
 
         $request->session()->flash('Success', __('system.messages.updated', ['model' => __('system.foods.title')]));
 

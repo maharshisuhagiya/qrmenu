@@ -42,7 +42,9 @@ Route::middleware(['preventBackHistory'])->group(function () {
         //  restaurant profile
         Route::get('{restaurant}/menu', 'show')->name('restaurant.menu');
         Route::get('{restaurant}/{food_category}/menu', 'categoryItems')->name('restaurant.menu.item');
+        Route::get('{restaurant}/{food_category}/{main_menu}/menu/search', 'categoryItemsSearch')->name('restaurant.menu.item.search');
         Route::post('foods/{food}','getFoodDetails')->name('restaurant.food');
+        Route::post('main-menu-search','searchByMainMenu')->name('restaurant.main_menu_search');
     });
 
     Route::put('default/{language}/languages', [App\Http\Controllers\Restaurant\LanguageController::class, 'defaultLanguage'])->name('restaurant.default.language');
@@ -93,6 +95,23 @@ Route::middleware(['preventBackHistory'])->group(function () {
         ]);
         Route::controller(App\Http\Controllers\Restaurant\MainMenuController::class)->group(function () {
             Route::post('main_menu/change/position', 'positionChange')->name('main_menu.change.position');
+            Route::get('add_static_data', 'add_static_data');
+        });
+        
+        // food-types management
+        Route::resource('food-types', App\Http\Controllers\Restaurant\FoodtypesController::class, [
+            'except' => ['show'],
+            'names' => [
+                'index' => 'food_types.index',
+                'store' => 'food_types.store',
+                'create' => 'food_types.create',
+                'update' => 'food_types.update',
+                'edit' => 'food_types.edit',
+                'destroy' => 'food_types.destroy',
+            ],
+        ]);
+        Route::controller(App\Http\Controllers\Restaurant\FoodtypesController::class)->group(function () {
+            Route::post('food-types/change/position', 'positionChange')->name('food_types.change.position');
             Route::get('add_static_data', 'add_static_data');
         });
         

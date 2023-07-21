@@ -45,6 +45,9 @@ array(
         'main_menu_name' => 'Menu Name',
         'main_menu_image' => 'Image',
         'main_menu_description' => 'Description',
+        'food_types_name' => 'Food Type Name',
+        'food_types_image' => 'Image',
+        'food_types' => 'Food Types',
         'food_name' => 'Title',
         'food_description' => 'Description',
         'food_image' => 'Image',
@@ -71,6 +74,7 @@ array(
         'select_restaurant_type' => 'Select Restaurant Type',
         'select_Category' => 'Select Category',
         'select_Main_Menu' => 'Select Main Menu',
+        'select_Food_Types' => 'Select Food Types',
         'select_app_currency' => 'Select Currency',
         'select_app_defult_language' => 'Select default language',
         'about' => 'About',
@@ -218,6 +222,17 @@ array(
         ),
         'update' => array(
             'menu' => 'Update menu',
+        ),
+        'are_you_sure' => '<b class="text-danger"> If you remove then all food and it\'s children will be removed automatically</b> <br> Are you sure you want to delete <b class="text-danger" >:name </b> menu?',
+    ),
+    'food_types' => array(
+        'menu' => 'Food Types',
+        'title' => 'Food Types',
+        'create' => array(
+            'menu' => 'Add a new food types',
+        ),
+        'update' => array(
+            'menu' => 'Update food types',
         ),
         'are_you_sure' => '<b class="text-danger"> If you remove then all food and it\'s children will be removed automatically</b> <br> Are you sure you want to delete <b class="text-danger" >:name </b> menu?',
     ),
