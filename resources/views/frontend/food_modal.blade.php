@@ -20,13 +20,13 @@
                         </button>
                         <div class="flex flex-col md:flex-row gap-5">
                             <div
-                                class="flex-none md:w-[500px] lg:w-[580px] md:max-w-[500px] lg:max-w-[580px] flex flex-row gap-3">
+                                class="flex-none md:w-[500px] lg:w-[580px] md:max-w-[500px] lg:max-w-[580px] flex flex-row gap-3" style="@if(count($food->gallery_images_slider_data)) @if(!$food->gallery_images_slider_data[0]['src']) display: none; @endif @endif">
                                 <div class="flex-1 swiper mySwiper2">
                                     <div class="swiper-wrapper">
                                         @foreach($food->gallery_images_slider_data as $img)
                                             <div class="swiper-slide cursor-grabbing">
                                                 <img src="{{ $img['src'] }}"
-                                                     onerror="this.src='{{ asset('assets/images/defult.jpg') }}'"
+                                                     {{-- onerror="this.src='{{ asset('assets/images/defult.jpg') }}'" --}}
                                                      alt="{{ $img['title'] ?? '' }}"
                                                      class="w-full h-full object-cover cursor-pointer lazyload"/>
                                             </div>
@@ -40,7 +40,7 @@
                                         @foreach($food->gallery_images_slider_data as $img)
                                             <div class="swiper-slide h-full cursor-grabbing">
                                                 <img src="{{ $img['src'] }}"
-                                                     onerror="this.src='{{ asset('assets/images/defult.jpg') }}'"
+                                                     {{-- onerror="this.src='{{ asset('assets/images/defult.jpg') }}'" --}}
                                                      alt="{{ $img['title'] ?? '' }}"
                                                      class="w-full h-full object-cover cursor-pointer lazyload"/>
                                             </div>
@@ -59,8 +59,10 @@
 
                                 </div>
                                 <ul class="font-bold space-y-1 text-black/70">
+                                    @if($food->price)
                                     <li>{{ __('system.fields.food_price') }}: <span
                                             class="font-semibold">{{ displayCurrency($food->price)  }}</span></li>
+                                    @endif
                                     @if(config('app.is_preparation_time_field_visible'))
                                         @isset($food->preparation_time )
                                             <li>{{ __('system.fields.preparation_time') }}: <span
@@ -105,7 +107,7 @@
                                                     <tr>
                                                         <th class="border border-black/20 px-4 py-2 font-normal">
                                                             <b>{{$k}}</b></th>
-                                                        <td class="border border-black/20 px-4 py-2">{{ $v }}</td>
+                                                        <td class="border border-black/20 px-4 py-2">{{ displayCurrency($v) }}</td>
                                                     </tr>
                                                 @endforeach
 

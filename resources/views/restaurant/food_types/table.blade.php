@@ -22,8 +22,8 @@
 
                     <div class="d-flex align-items-top">
                         <div>
-                            @if ($foodTypesData->food_types != null)
-                                <img data-src="{{ $foodTypesData->food_types }}" alt="" class="avatar-lg rounded-circle me-2 image-object-cover lazyload">
+                            @if ($foodTypesData->food_types_image_url != null)
+                                <img data-src="{{ $foodTypesData->food_types_image_url }}" alt="" class="avatar-lg rounded-circle me-2 image-object-cover lazyload">
                             @else
                                 <div class="avatar-lg d-inline-block align-middle me-2">
                                     <div class="avatar-title bg-soft-primary text-primary font-size-24 m-0 rounded-circle font-weight-bold">

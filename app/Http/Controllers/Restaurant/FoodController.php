@@ -48,10 +48,13 @@ class FoodController extends Controller
         DB::table('food_food_category')->insert($inserts);
 
         $inserts = [];
-        foreach ($food_types as $food_type) {
-            $inserts[] = ['food_types_id' => $food_type, 'food_id' => $food->id];
+        if($food_types)
+        {
+            foreach ($food_types as $food_type) {
+                $inserts[] = ['food_types_id' => $food_type, 'food_id' => $food->id];
+            }
+            DB::table('food_food_types')->insert($inserts);
         }
-        DB::table('food_food_types')->insert($inserts);
 
         $request->session()->flash('Success', __('system.messages.saved', ['model' => __('system.foods.title')]));
 
@@ -118,15 +121,21 @@ class FoodController extends Controller
         }
         DB::table('food_food_category')->insert($inserts);
 
-        $addData = array_diff($food_types, $food->food_types_ids);
-        $deleted = array_diff($food->food_types_ids, $food_types);
-
-        $ids = DB::table('food_food_types')->where('food_id', $food->id)->whereIn('food_types_id', $deleted)->delete();
-        $inserts = [];
-        foreach ($addData as $category) {
-            $inserts[] = ['food_types_id' => $category, 'food_id' => $food->id];
+        if($food_types)
+        {
+            $addData = array_diff($food_types, $food->food_types_ids);
+            $deleted = array_diff($food->food_types_ids, $food_types);
+            $ids = DB::table('food_food_types')->where('food_id', $food->id)->whereIn('food_types_id', $deleted)->delete();
+            $inserts = [];
+            foreach ($addData as $category) {
+                $inserts[] = ['food_types_id' => $category, 'food_id' => $food->id];
+            }
+            DB::table('food_food_types')->insert($inserts);
         }
-        DB::table('food_food_types')->insert($inserts);
+        else
+        {
+            $ids = DB::table('food_food_types')->where('food_id', $food->id)->delete();
+        }
 
         $request->session()->flash('Success', __('system.messages.updated', ['model' => __('system.foods.title')]));
 

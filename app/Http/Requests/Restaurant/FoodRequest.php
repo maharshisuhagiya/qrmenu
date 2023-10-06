@@ -33,11 +33,11 @@ class FoodRequest extends FormRequest
             'price' => ['required', 'numeric'],
             'preparation_time' => ['nullable', 'string'],
             'categories' => ['required'],
-            'food_types' => ['required'],
+            // 'food_types' => ['required'],
             'calories' => ['nullable'],
             'allergy' => ['nullable'],
             'categories.*' => ['exists:food_categories,id'],
-            'food_types.*' => ['exists:food_types,id'],
+            // 'food_types.*' => ['exists:food_types,id'],
             'restaurant_id' => ['required', 'unique:foods,restaurant_id,null,id,name,' . $request->name],
         ];
 
@@ -57,7 +57,7 @@ class FoodRequest extends FormRequest
                 }
             }
         } else {
-            array_push($rules['food_image'], 'required');
+            array_push($rules['food_image'], 'nullable');
             $rules['lang_name.*'] = ['required'];
             $rules['lang_description.*'] = ['nullable'];
             $rules['restaurant_ids.*'] = ['required'];

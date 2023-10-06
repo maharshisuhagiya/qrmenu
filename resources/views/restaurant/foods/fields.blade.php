@@ -11,11 +11,11 @@
         <div class="d-flex align-items-center">
             <input type="file" name="food_image" id="food_image" class="d-none my-preview" accept="image/*"
                    data-pristine-accept-message="{{ __('validation.enum', ['attribute' => strtolower($lbl_food_image)]) }}"
-                   data-pristine-required-message="{{ __('validation.custom.select_required', ['attribute' => strtolower($lbl_food_image)]) }}"
-                   data-preview='.preview-image' @if (!isset($food)) required @endif>
+                   {{-- data-pristine-required-message="{{ __('validation.custom.select_required', ['attribute' => strtolower($lbl_food_image)]) }}" --}}
+                   data-preview='.preview-image' @if (!isset($food))  @endif>
             <label for="food_image" class="mb-0">
                 <div for="profile-image" class="btn btn-outline-primary waves-effect waves-light my-2 mdi mdi-upload ">
-                    <span class="d-none d-lg-inline"> {{ $lbl_food_image }} <span class="text-danger">*</span> </span>
+                    <span class="d-none d-lg-inline"> {{ $lbl_food_image }} </span>
                 </div>
             </label>
             <div class='mx-3 '>
@@ -73,7 +73,7 @@
         <div class="mb-3 form-group  @error('food_types') has-danger @enderror ">
             @php($lbl_food_types = __('system.fields.food_types'))
             {{-- {{ dd($food->food_types_ids) }} --}}
-            <label class="form-label" for="input-language">{{ $lbl_food_types }} <span class="text-danger">*</span></label>
+            <label class="form-label" for="input-language">{{ $lbl_food_types }} </label>
             @php($food_types = App\Http\Controllers\Restaurant\FoodCategoryController::getCurrentRestaurantAllFoodTypes())
             <input 
                 type="text"
@@ -81,9 +81,9 @@
                 pristine-value-in="{{ implode(',', array_keys($food_types)) }}"
                 value="{{ old('food_types_select', implode(',', $food->food_types_ids ?? [])) }}"
                 id="choices-multiple-remove-button-refs" 
-                required="true" 
+                {{-- required="true"  --}}
                 class="pristine-in-validators d-none"
-                data-pristine-required-message="{{ __('validation.custom.select_required', ['attribute' => strtolower($lbl_food_types)]) }}"
+                {{-- data-pristine-required-message="{{ __('validation.custom.select_required', ['attribute' => strtolower($lbl_food_types)]) }}" --}}
             >
             {!! Form::select('food_types[]', $food_types, old('food_types', $food->food_types_ids ?? []), [
                 'class' => 'form-control choice-picker-multiple w-100 ',

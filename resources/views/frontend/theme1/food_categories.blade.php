@@ -13,7 +13,21 @@
                         <a href="javascript:" class="font-bold text-secondary dark:text-white name">{{ $food->local_lang_name }}</a>
                         <p class="text-neutral text-sm pt-3 mb-4 font-semibold line-clamp-3 description">
                             {{ $food->local_lang_description }}</p>
-                        <button type="button" class="text-primary font-bold text-sm dark:text-white bg-primary/10 dark:bg-primary rounded-lg py-1.5 px-3 inline-block amount"><span>{{ displayCurrency($food->price) }}</span></button>
+                        @if($food->price == 0)
+                            @foreach ($food->local_custom_field as $item)
+                                <button type="button" class="text-primary font-bold text-sm dark:text-white bg-primary/10 dark:bg-primary rounded-lg py-1.5 px-3 inline-block amount">
+                                    <span>
+                                        {{ displayCurrency($item) }}
+                                    </span>
+                                </button>
+                            @endforeach
+                        @else
+                            <button type="button" class="text-primary font-bold text-sm dark:text-white bg-primary/10 dark:bg-primary rounded-lg py-1.5 px-3 inline-block amount">
+                                <span>
+                                    {{ displayCurrency($food->price) }}
+                                </span>
+                            </button>
+                        @endif
                         <span class="food-type">
                             @if(count($food->food_types))
                                 @foreach ($food->food_types as $item)
